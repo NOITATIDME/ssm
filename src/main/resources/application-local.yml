@@ -1,6 +1,11 @@
 spring:
   application:
     name: ssm_3
+  profiles:
+    active: ${profile}
+  devtools: #devtools
+    restart:
+      enabled: true
 
 server:
   port: 8081
@@ -21,7 +26,8 @@ logging:
   logback:
     rollingpolicy:
       max-history: 1
-    
+
+
 
 ####################################################################################################################################################
 # Swagger

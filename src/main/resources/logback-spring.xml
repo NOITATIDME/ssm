@@ -3,12 +3,106 @@
 <!-- 60초마다 설정 파일의 변경을 확인하여 변경시 갱신 -->
 <configuration scan="true" scanPeriod="60 seconds">
 
-	<property name="" value=""/>
-	<property name="" value=""/>
-	<property name="" value=""/>
-	<property name="" value=""/>
-	<property name="" value=""/>
-	<property name="" value=""/>
-	<property name="" value=""/>
+	<property name="LOG_LEVEL" value="${LOG_LEVEL}"/>
+	<property name="LOG_FILE" value="${LOG_FILE}"/>
+	<property name="LOG_PATH" value="${LOG_PATH}"/>
+	<property name="CONSOLE_LOG_PATTERN" value="${CONSOLE_LOG_PATTERN}"/>
+	<property name="FILE_LOG_PATTERN" value="${FILE_LOG_PATTERN}"/>
+	<property name="LOGBACK_ROLLINGPOLICY_MAX_HISTORY" value="${LOGBACK_ROLLINGPOLICY_MAX_HISTORY}"/>
+	<property name="ERR_LOG_FILE" value="${LOG_FILE}_error"/>
+
+	<!-- ConsoleAppender 는 로그를 OutputStream 에 작성하여 콘솔에 출력.-->
+	<!-- FileAppender 는 파일에 로그를 출력하며, 최대 보관 일수, 파일 용량 등을 지정  -->
+	
+	<!-- ConsoleAppender -->
+	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${CONSOLE_LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- FileAppender -->
+	<appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 파일 경로 설정 -->
+		<file>${LOG_PATH}/${LOG_FILE}.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>${FILE_LOG_PATTERN}</pattern>
+		</encoder>
+		<!-- Rolling 정책 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- gz, zip 등을 넣으면 자동 일자별 로그파일 압축 -->
+			<fileNamePattern>${LOG_PATH}/%d{yyyy-MM-dd}/${LOG_FILE}.%d{yyyy-MM-dd_HH}.log</fileNamePattern>
+			
+			<!-- 파일당 최고 용량 kb, mb, gb -->
+			<!-- <maxFileSize>10MB</maxFileSize> -->
+			<!-- 일자별 로그파일 최대 보관주기(~일) 해당 설정일 이상된 파일은 자동으로 제거 -->
+			<maxHistory>${LOGBACK_ROLLINGPOLICY_MAX_HISTORY}</maxHistory>
+		</rollingPolicy>
+	</appender>
+
+
+	<!-- 에러의 경우 파일에 로그 처리 -->
+	<appender name="errorFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 로그 레벨이 일치하다면 로그를 필터링 -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter"> 
+			<level>error</level>
+			<!-- onMatch - 로그 이벤트 중 ERROR 레벨과 일치한다면 해당 appender를 적용하고 -->
+			<onMatch>ACCEPT</onMatch>
+			<!-- onMismatch - 일치하지 않다면 해당 appender를 적용하지 않습니다. -->
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<file>${LOG_PATH}/${ERR_LOG_FILE}.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>${FILE_LOG_PATTERN}</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/%d{yyyy-MM-dd}/${ERR_LOG_FILE}.%d{yyyy-MM-dd_HH}.log</fileNamePattern>
+			<maxHistory>${LOGBACK_ROLLINGPOLICY_MAX_HISTORY}</maxHistory>
+		</rollingPolicy>
+	</appender>
+
+	<springProfile name="local">
+		<root level="${LOG_LEVEL}">
+			<appender-ref ref="consoleAppender"/>
+			<appender-ref ref="fileAppender"/>
+			<appender-ref ref="errorFileAppender"/>
+		</root>
+	</springProfile>
+	
+	<springProfile name="dev">
+		<root level="${LOG_LEVEL}">
+			<appender-ref ref="consoleAppender"/>
+			<appender-ref ref="fileAppender"/>
+			<appender-ref ref="errorFileAppender"/>
+		</root>
+	</springProfile>
+	
+	<springProfile name="prod">
+		<root level="${LOG_LEVEL}">
+			<appender-ref ref="consoleAppender"/>
+			<appender-ref ref="fileAppender"/>
+			<appender-ref ref="errorFileAppender"/>
+		</root>
+	</springProfile>
+
+	<!-- 특정패키지 로깅레벨 설정 -->
+	<logger name="org.springframework" level="error" additivity="false"/>
+	<logger name="org.springframework.core" level="error" additivity="false"/>
+	<logger name="org.springframework.beans" level="error" additivity="false"/>
+	<logger name="org.springframework.context" level="error" additivity="false"/>
+	<logger name="org.springframework.web" level="error" additivity="false"/>
+	<logger name="org.springframework.security.web" level="error" additivity="false"/>
+
+	<logger name="org.mybatis.core" level="error"/>
+
+	<logger name="com.zaxxer.hikari.pool.PoolBase" level="error"/>
+	<logger name="com.zaxxer.hikari.pool.HikariPool" level="error"/>
+	<logger name="com.zaxxer.hikari.HikariDataSource" level="error"/>
+
+	<logger name="org.apache.ibatis" level="error" additivity="false">
+		<appender-ref ref="consoleAppender"/>
+		<appender-ref ref="fileAppender"/>
+		<appender-ref ref="errorFileAppender"/>
+	</logger>
 
 </configuration>

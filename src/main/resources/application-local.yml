@@ -1,8 +1,9 @@
 spring:
   application:
     name: ssm_3
-  profiles:
-    active: ${profile}
+  config:
+    activate:
+      on-profile: local
   devtools: #devtools
     restart:
       enabled: true
@@ -37,4 +38,7 @@ springdoc:
     path: /swagger-ui
     groups:
       enabled: true 
-
+  default-produces-media-type: application/json
+  default-consumes-media-type: application/json
+  swagger-ui:
+    tags-sorter: alpha

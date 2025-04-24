@@ -23,7 +23,10 @@ public class SwaggerSecurityConfig {
     	.authorizeHttpRequests(auth -> auth.requestMatchers(
                 "/swagger-ui/**",
                 "/v3/api-docs/**",
-                "/swagger-resources/**"
+                "/swagger-resources/**",
+                "/webjars/**",                     // ✅ 이거 추가!
+                "/swagger-ui.html",                // ✅ 추가!
+                "/swagger-ui/index.html"           // ✅ 혹시 몰라 명시!
             ).authenticated() // Swagger에만 인증 적용
     			.anyRequest().permitAll() // 그 외 경로는 허용
             )
@@ -39,9 +42,9 @@ public class SwaggerSecurityConfig {
         return new BCryptPasswordEncoder(); // ⬅️ 비밀번호 암호화 방식 (DB 저장 시 사용) // 비밀번호 암호화 전략 (BCrypt)
     }
 
-    @Bean
-    protected AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();  // 인증 처리에 필요한 매니저
-    
-    }
+//    @Bean
+//    protected AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+//        return config.getAuthenticationManager();  // 인증 처리에 필요한 매니저
+//    
+//    }
 }

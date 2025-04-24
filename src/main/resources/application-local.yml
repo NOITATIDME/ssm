@@ -35,7 +35,7 @@ logging:
 ####################################################################################################################################################
 springdoc:
   api-docs:
-    path: /swagger-ui
+    path: /swagger-ui.html
     groups:
       enabled: true 
   default-produces-media-type: application/json

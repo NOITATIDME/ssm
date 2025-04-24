@@ -36,8 +36,8 @@ public class SwaggerConfig {
     @Bean
     protected GroupedOpenApi apiGroup() {
         return GroupedOpenApi.builder()
-                .group("demo-api") // ⬅️ API 그룹 이름 (문서의 제목처럼 사용됨)
-                .packagesToScan("com.ssm.*") // ⬅️ 이 패키지 하위의 컨트롤러만 문서화
+                .group("ssm") // ⬅️ API 그룹 이름 (문서의 제목처럼 사용됨)
+                .packagesToScan("com.ssm") // ⬅️ 이 패키지 하위의 컨트롤러만 문서화
                 .build();
     }
 }

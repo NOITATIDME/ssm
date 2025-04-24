@@ -29,7 +29,7 @@ public class MdcFilter implements Filter {
 	private static final String TRACE_ID = "traceId";
 	
 	private static final Set<String> excludePathSet = Collections.unmodifiableSet(new HashSet<String>(
-			Arrays.asList("aaaa","bbbb","cccc"))); // filter를 제외 시킬 uri 추가 ex) swagger
+			Arrays.asList("/swagger-ui/**","bbbb","cccc"))); // filter를 제외 시킬 uri 추가 ex) swagger
 	
 	@Override
 	public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain filterChain) throws IOException, ServletException {

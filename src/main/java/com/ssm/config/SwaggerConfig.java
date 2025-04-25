@@ -29,8 +29,8 @@ public class SwaggerConfig {
                                     .type(SecurityScheme.Type.HTTP) // ⬅️ HTTP 인증 방식
                                     .scheme("basic") // ⬅️ basic 인증 스킴 (username/password)
                     )
-            ).addSecurityItem(new SecurityRequirement().addList("basicAuth")); // ⬅전체 API에 인증 요구
-            
+            );
+        	//.addSecurityItem(new SecurityRequirement().addList("basicAuth")); // ⬅전체 API에 인증 요구
     }
     
     @Bean

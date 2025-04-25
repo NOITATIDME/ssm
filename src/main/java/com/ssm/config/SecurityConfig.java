@@ -26,7 +26,8 @@ public class SecurityConfig {
                 "/swagger-resources/**",
                 "/webjars/**",                     // ✅ 이거 추가!
                 "/swagger-ui.html",                // ✅ 추가!
-                "/swagger-ui.html/**"           // ✅ 혹시 몰라 명시!
+                "/swagger-ui.html/**",           // ✅ 혹시 몰라 명시!
+                "/index.html" // oauth2 임시용
             ).permitAll()
     			.anyRequest().authenticated() // 그 외 경로는 허용
             )

@@ -1,4 +1,4 @@
-package com.ssm.config.swagger;
+package com.ssm.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @Profile({"local", "dev"})
-public class SwaggerSecurityConfig {
+public class SecurityConfig {
 	
     @Bean
     protected SecurityFilterChain swaggerSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -26,9 +26,9 @@ public class SwaggerSecurityConfig {
                 "/swagger-resources/**",
                 "/webjars/**",                     // ✅ 이거 추가!
                 "/swagger-ui.html",                // ✅ 추가!
-                "/swagger-ui/index.html"           // ✅ 혹시 몰라 명시!
-            ).authenticated() // Swagger에만 인증 적용
-    			.anyRequest().permitAll() // 그 외 경로는 허용
+                "/swagger-ui.html/**"           // ✅ 혹시 몰라 명시!
+            ).permitAll()
+    			.anyRequest().authenticated() // 그 외 경로는 허용
             )
     	 .formLogin(Customizer.withDefaults()) // 기본 로그인 페이지 사용
          .httpBasic(Customizer.withDefaults()); // Swagger가 쓰는 Basic Auth 대응

@@ -15,7 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @Profile({"local", "dev"})
 public class SecurityConfig {
-	
+
     @Bean
     protected SecurityFilterChain swaggerSecurityFilterChain(HttpSecurity http) throws Exception {
     	http
@@ -32,9 +32,9 @@ public class SecurityConfig {
     			.anyRequest().authenticated() // 그 외 경로는 허용
             )
     	 .formLogin(Customizer.withDefaults()) // 기본 로그인 페이지 사용
-         .httpBasic(Customizer.withDefaults()); // Swagger가 쓰는 Basic Auth 대응
+         .httpBasic(Customizer.withDefaults()) // Swagger가 쓰는 Basic Auth 대응
     	;
-    	
+
         return http.build(); // ⬅️ SecurityFilterChain Bean 반환
     }
 
@@ -46,6 +46,6 @@ public class SecurityConfig {
 //    @Bean
 //    protected AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
 //        return config.getAuthenticationManager();  // 인증 처리에 필요한 매니저
-//    
+//
 //    }
 }

@@ -1,9 +1,9 @@
 spring:
+#  profiles:
+#    active: ${profile}
   application:
     name: ssm_3
-  config:
-    activate:
-      on-profile: local
+     
   devtools: #devtools
     restart:
       enabled: true
@@ -13,6 +13,10 @@ spring:
     username: ${DB_USERNAME} # 환경변수 DB_USERNAME로부터 사용자명 받기
     password: ${DB_PASSWORD} # 환경변수 DB_PASSWORD로부터 비밀번호 받기
     driver-class-name: org.mariadb.jdbc.Driver
+#    jndi-name: ${DB_JNDI_NAME}
+    type: basic
+
+
   jpa:
     hibernate:
       ddl-auto: none # Hibernate가 DDL을 실행하지 않도록 설정
@@ -25,19 +29,19 @@ spring:
         physical_naming_strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl  # 물리적 네이밍 전략
     database-platform: org.hibernate.dialect.MariaDBDialect
   
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: ${GOOGLE_CLIENT}
-            client-secret: ${GOOGLE_SECRET}
-            scope:  # google API의 범위 값
-              - profile 
-              - email 
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          google:
+#            client-id: ${GOOGLE_CLIENT}
+#            client-secret: ${GOOGLE_SECRET}
+#            scope:  # google API의 범위 값
+#              - profile 
+#              - email 
 #          kakao:
-#          	client-id: ${KAKAO_CLIENT}
-#          	client-secret: ${KAKAO_SECRET}
+#          client-id: 
+#          client-secret: 
 #            redirect-uri: {baseUrl}/login/oauth2/code/kakao
 #            client-authentication-method: client_secret_post # kakao는 인증 토큰 발급 요청 메서드가 post이다. (최근 버전에는 작성 방법이 이렇게 바뀌었다.)
 #            authorization-grant-type: authorization_code

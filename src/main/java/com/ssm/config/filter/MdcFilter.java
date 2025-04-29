@@ -1,4 +1,4 @@
-package com.ssm.filter;
+package com.ssm.config.filter;
 
 import java.io.IOException;
 import java.util.Arrays;

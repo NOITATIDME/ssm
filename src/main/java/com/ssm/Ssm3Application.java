@@ -7,14 +7,15 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 @SpringBootApplication(scanBasePackages = "com.ssm")
 public class Ssm3Application extends SpringBootServletInitializer {
-
-//	@Override
-//	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-//		return application.sources(Ssm3Application.class);
-//	}
-//	
+	
 	public static void main(String[] args) {
-		SpringApplication.run(Ssm3Application.class, args);
+        try {
+            SpringApplication.run(Ssm3Application.class, args);
+        } catch (Exception e) {
+            e.printStackTrace();  // 예외 상세 확인
+        }
+
+		/* SpringApplication.run(Ssm3Application.class, args); */
 	}
 
 }

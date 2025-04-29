@@ -23,13 +23,15 @@ public class SwaggerConfig {
                 .version("1.0")
                 .description("API 문서입니다.")
                 //.contact(new Contact().name("관리자").email("admin@example.com"))
-            ).components(new Components()
+            )
+            .components(new Components()
                     .addSecuritySchemes("basicAuth", // ⬅️ 보안 설정 - Swagger UI에 표시됨
                             new SecurityScheme()
                                     .type(SecurityScheme.Type.HTTP) // ⬅️ HTTP 인증 방식
                                     .scheme("basic") // ⬅️ basic 인증 스킴 (username/password)
                     )
-            );
+            )
+            ;
         	//.addSecurityItem(new SecurityRequirement().addList("basicAuth")); // ⬅전체 API에 인증 요구
     }
     

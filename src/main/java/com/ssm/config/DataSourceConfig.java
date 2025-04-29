@@ -48,9 +48,9 @@ public class DataSourceConfig extends AbstractJdbcConfiguration implements Envir
 		DataSource dataSource = null;
 		System.out.println("✅ spring.datasource 시작");
 
-		if("jndi".equals(env.getProperty("spring.datasource.type"))) {
-			dataSource = (DataSource) new JndiTemplate().lookup("spring.datasource.jndi-name");
-		}else if("basic".equals(env.getProperty("spring.datasource.type"))) {
+//		if("jndi".equals(env.getProperty("spring.datasource.type"))) {
+//			dataSource = (DataSource) new JndiTemplate().lookup("spring.datasource.jndi-name");
+//		}else if("basic".equals(env.getProperty("spring.datasource.type"))) {
 			HikariConfig config = new HikariConfig();
 			System.out.println("✅ spring.datasource.url: " + env.getProperty("spring.datasource.url"));
 			System.out.println("✅ spring.datasource.username: " + env.getProperty("spring.datasource.username"));
@@ -63,7 +63,7 @@ public class DataSourceConfig extends AbstractJdbcConfiguration implements Envir
 			config.setMaximumPoolSize(10);
 			config.setAutoCommit(true);
 			dataSource = new HikariDataSource(config);
-		}
+//		}
 		
 		return dataSource;
 	}
@@ -90,8 +90,8 @@ public class DataSourceConfig extends AbstractJdbcConfiguration implements Envir
 		configuration.setDefaultExecutorType(ExecutorType.REUSE);
 		sessionFactoryBean.setConfiguration(configuration);
 		sessionFactoryBean.setDataSource(dataSource);
-		sessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:/sqlmap/repository/**/*.xml"));
-		sessionFactoryBean.setTypeAliasesPackage("com.ssm.repository");
+		sessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:/mapper/**/*.xml"));
+		sessionFactoryBean.setTypeAliasesPackage("com.ssm.dao");
 		
 		Reflections reflections = new Reflections("com.ssm");
 		Set<Class<?>> classes = reflections.getTypesAnnotatedWith(SsmEntity.class);

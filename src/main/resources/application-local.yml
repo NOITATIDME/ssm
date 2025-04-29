@@ -9,12 +9,12 @@ spring:
       enabled: true
   
   datasource:
-    url: ${DB_URL} # 환경변수 DB_URL로부터 URL 동적으로 받기
-    username: ${DB_USERNAME} # 환경변수 DB_USERNAME로부터 사용자명 받기
-    password: ${DB_PASSWORD} # 환경변수 DB_PASSWORD로부터 비밀번호 받기
+    url: jdbc:mariadb://localhost:3306/ssm # 환경변수 DB_URL로부터 URL 동적으로 받기
+    username: root # 환경변수 DB_USERNAME로부터 사용자명 받기
+    password: 1234 # 환경변수 DB_PASSWORD로부터 비밀번호 받기
     driver-class-name: org.mariadb.jdbc.Driver
 #    jndi-name: ${DB_JNDI_NAME}
-    type: basic
+#    type: basic
 
 
   jpa:
@@ -62,15 +62,15 @@ spring:
 server:
   port: 8081
 
-mybatis:
-  configuration:
-    multiple-result-sets-enabled: false
-    map-underscore-to-camel-case: true
-    call-setters-on-nulls: true
-    jdbc-type-for-null: varchar
-    default-fetch-size: 500
-  mapper-locations:
-  - classpath:mybatis/mapper/*.xml
+#mybatis:
+#  configuration:
+#    multiple-result-sets-enabled: false
+#    map-underscore-to-camel-case: true
+#    call-setters-on-nulls: true
+#    jdbc-type-for-null: varchar
+#    default-fetch-size: 500
+#  mapper-locations:
+#  - classpath:mybatis/**/*.xml
 
 ####################################################################################################################################################
 # logging
@@ -88,7 +88,6 @@ logging:
   logback:
     rollingpolicy:
       max-history: 1
-
 
 
 ####################################################################################################################################################

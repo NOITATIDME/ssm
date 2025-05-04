@@ -109,9 +109,9 @@ public class TokenProvider {
 //        } catch (ExpiredJwtException e) {
 //            return e.getClaims();
 //        } catch (MalformedJwtException e) {
-//            throw new TokenException(INVALID_TOKEN);
+//            throw new Exception(e);
 //        } catch (SecurityException e) {
-//            throw new TokenException(INVALID_JWT_SIGNATURE);
+//        	throw new Exception(e);
 //        }
 //    }
 }

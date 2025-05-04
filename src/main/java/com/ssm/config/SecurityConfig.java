@@ -53,7 +53,8 @@ public class SecurityConfig {
                 "/webjars/**",                     // ✅ 이거 추가!
                 "/swagger-ui.html",                // ✅ 추가!
                 "/swagger-ui.html/**",           // ✅ 혹시 몰라 명시!
-                "/index.html" // oauth2 임시용
+                "/index.html", // oauth2 임시용
+                "/auth/success"
             ).permitAll()
     			.anyRequest().authenticated() // 그 외 경로는 허용
             )
@@ -61,7 +62,7 @@ public class SecurityConfig {
     	 // oauth2 설정
         .oauth2Login(oauth -> // OAuth2 로그인 기능에 대한 여러 설정의 진입점
                 // OAuth2 로그인 성공 이후 사용자 정보를 가져올 때의 설정을 담당
-                oauth.userInfoEndpoint(c -> c.userService(oAuth2UserService))
+            	oauth.userInfoEndpoint(c -> c.userService(oAuth2UserService))
                         // 로그인 성공 시 핸들러
                         .successHandler(oAuth2SuccessHandler)
         )

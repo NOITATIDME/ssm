@@ -8,6 +8,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
 import com.ssm.auth.dto.OAuth2UserInfo;
 import com.ssm.auth.dto.PrincipalDetails;
 import com.ssm.domain.member.entity.Member;
@@ -15,9 +16,11 @@ import com.ssm.domain.member.repository.MemberRepository;
 
 import jakarta.security.auth.message.AuthException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     private final MemberRepository memberRepository;
@@ -27,8 +30,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         // 1. 유저 정보(attributes) 가져오기
         Map<String, Object> oAuth2UserAttributes = super.loadUser(userRequest).getAttributes();
 
+        log.debug("oAuth2UserAttributes : {} ", new Gson().toJson(oAuth2UserAttributes));
+
         // 2. resistrationId 가져오기 (third-party id)
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
+
+        log.debug("registrationId : {} ", registrationId);
 
         // 3. userNameAttributeName 가져오기
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails()

@@ -28,10 +28,10 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 //        String accessToken = tokenProvider.generateAccessToken(authentication);
 //        tokenProvider.generateRefreshToken(authentication, accessToken);
 
-//        String redirectUrl = UriComponentsBuilder.fromUriString(URI)
-//                .queryParam("accessToken", accessToken)
-//                .build().toUriString();
+        String redirectUrl = UriComponentsBuilder.fromUriString(URI)
+                //.queryParam("accessToken", accessToken)
+                .build().toUriString();
 
-//        response.sendRedirect(redirectUrl);
+        response.sendRedirect(redirectUrl);
     }
 }

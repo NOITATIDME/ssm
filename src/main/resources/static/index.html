@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+  <meta name="google-signin-client_id" content="101082083936-98it4vafr1vsgghvprboer0kn6gq6dke.apps.googleusercontent.com">
+</head>
+<body>
+	<title>Insert title here</title>
 	<h2>HIHIHIHI</h2>
 	<a href="https://kauth.kakao.com/oauth/authorize?
 		client_id=953543ed35427edc43ad0f9188a78f75
@@ -11,13 +14,33 @@
 		<img height="38px" src="./images/kakao_login_button.png"/>
 	</a>
 	<br\>
-	<a href=" https://nid.naver.com/oauth2.0/authorize?
-		&client_id=	HcvidcfYksGLpixtyQoV
+	<a href="https://nid.naver.com/oauth2.0/authorize?
+		client_id=HcvidcfYksGLpixtyQoV
 		&redirect_uri=http://localhost:8081/auth/successs
 		&response_type=code">
 		<img height="38px" src="./images/naver_login_button.png"/>
 	</a>
-</head>
-<body>
+  <div id="my-signin2"></div>
+  <script>
+    function onSuccess(googleUser) {
+      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    }
+    function onFailure(error) {
+      console.log(error);
+    }
+    function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+      });
+    }
+  </script>
+
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 </body>
 </html>

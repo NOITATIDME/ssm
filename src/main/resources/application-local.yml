@@ -33,12 +33,15 @@ spring:
     oauth2:
       client:
         registration:
-#          google:
-#            client-id: ${GOOGLE_CLIENT}
-#            client-secret: ${GOOGLE_SECRET}
-#            scope:  # google API의 범위 값
-#              - profile 
-#              - email 
+          google:
+            client-id: ${GOOGLE_CLIENT}
+            client-secret: ${GOOGLE_SECRET}
+            redirect-uri: http://localhost:8081/auth/success
+            client-authentication-method: client_secret_post # kakao는 인증 토큰 발급 요청 메서드가 post이다. (최근 버전에는 작성 방법이 이렇게 바뀌었다.)
+            authorization-grant-type: authorization_code
+            scope:  # google API의 범위 값
+              - profile 
+              - email 
           kakao:
             client-id: ${KAKAO_CLIENT}
             client-secret: ${KAKAO_SECRET}
